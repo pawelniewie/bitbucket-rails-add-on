@@ -57,6 +57,9 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    jbuilder (2.4.1)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
     json (1.8.3)
     jwt (1.5.4)
     listen (3.0.8)
@@ -72,6 +75,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
+    multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -136,6 +140,7 @@ PLATFORMS
 DEPENDENCIES
   atlassian-jwt-authentication!
   byebug
+  jbuilder (~> 2.0)
   listen (~> 3.0.5)
   pg (~> 0.18)
   puma (~> 3.0)

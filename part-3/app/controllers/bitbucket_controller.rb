@@ -2,7 +2,7 @@ class BitbucketController < ApplicationController
 
 	def descriptor
 		render :descriptor, locals: { 
-			base_url: ApplicationController.renderer.defaults[:http_host]
+			base_url: 'https://' + ApplicationController.renderer.defaults[:http_host]
 		}
 	end
 

@@ -39,3 +39,5 @@ gem 'atlassian-jwt-authentication',
 	git: 'https://github.com/MeisterLabs/atlassian-jwt-authentication.git', 
 	branch: 'master',
 	require: 'atlassian_jwt_authentication'
+
+gem 'haml'

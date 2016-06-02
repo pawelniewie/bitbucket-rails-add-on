@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/MeisterLabs/atlassian-jwt-authentication.git
-  revision: 964291a55fe3979aabace28dab512f59bd18ecc5
+  revision: fde44ccf4b69153346b2c0b97ab19633bcc34571
   branch: master
   specs:
     atlassian-jwt-authentication (0.1.0)
@@ -57,6 +57,8 @@ GEM
     ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    haml (4.0.7)
+      tilt
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -133,6 +135,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    tilt (2.0.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     websocket-driver (0.6.4)
@@ -145,6 +148,7 @@ PLATFORMS
 DEPENDENCIES
   atlassian-jwt-authentication!
   byebug
+  haml
   jbuilder (~> 2.0)
   listen (~> 3.0.5)
   pg (~> 0.18)

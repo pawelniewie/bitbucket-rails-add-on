@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528193647) do
+ActiveRecord::Schema.define(version: 20160601141748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,15 @@ ActiveRecord::Schema.define(version: 20160528193647) do
     t.string "client_key"
     t.string "shared_secret"
     t.string "product_type"
+    t.string "base_url"
     t.index ["client_key"], name: "index_jwt_tokens_on_client_key", using: :btree
   end
 
   create_table "jwt_users", force: :cascade do |t|
     t.integer "jwt_token_id"
     t.string  "user_key"
+    t.string  "name"
+    t.string  "display_name"
   end
 
 end

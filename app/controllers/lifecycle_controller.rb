@@ -1,5 +1,5 @@
 class LifecycleController < ApplicationController
-	include AtlassianJwtAuthentication::Filters
+	include AtlassianJwtAuthentication
 	
 	before_action :on_add_on_installed, only: [:installed]
 	before_action :on_add_on_uninstalled, only: [:uninstalled]

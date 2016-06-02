@@ -1,24 +1,36 @@
 {
     "authentication": {
         "type": "jwt"
-    }, 
-    "baseUrl": "<%= base_url %>", 
+    },
+    "baseUrl": "<%= base_url %>",
     "contexts": [
         "personal"
-    ], 
-    "description": "Blah blah blah", 
-    "key": "stars<%= "." + Rails.env unless Rails.env.production? %>",
-    "name": "Stars for BitBucket", 
+    ],
+    "description": "Blah blah blah",
+    "key": "<%= plugin_key %>",
+    "name": "Stars for BitBucket",
     "scopes": [
-        "account", 
+        "account",
         "repository"
-    ], 
+    ],
     "lifecycle": {
-        "installed": "/installed", 
+        "installed": "/installed",
         "uninstalled": "/uninstalled"
     },
+    "modules": {
+      "webPanel": [
+        {
+          "url": "/stars?repoPath={repo_path}",
+          "name": {
+            "value": "Stars Web Panel"
+          },
+          "location": "org.bitbucket.repository.overview.informationPanel",
+          "key": "stars-web-panel"
+        }
+      ]
+    },
     "vendor": {
-        "name": "Pawel Niewiadomski", 
+        "name": "Pawel Niewiadomski",
         "url": "https://pawelniewiadomski.com"
     }
 }

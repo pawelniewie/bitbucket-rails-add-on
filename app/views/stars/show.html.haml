@@ -1,0 +1,105 @@
+!!!
+%html
+  %head
+    %script{:src => 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'}
+    %script{:src => 'https://bitbucket.org/atlassian-connect/all.js'}
+    / AUI
+    %link{:href => '//aui-cdn.atlassian.com/aui-adg/5.9.19/css/aui.min.css', :media => 'all', :rel => 'stylesheet'}/
+    %link{:href => '//aui-cdn.atlassian.com/aui-adg/5.9.19/css/aui-experimental.min.css', :media => 'all', :rel => 'stylesheet'}/
+    %script{:src => '//aui-cdn.atlassian.com/aui-adg/5.9.19/js/aui.min.js'}
+    %script{:src => '//aui-cdn.atlassian.com/aui-adg/5.9.19/js/aui-datepicker.min.js'}
+    %script{:src => '//aui-cdn.atlassian.com/aui-adg/5.9.19/js/aui-experimental.min.js'}
+    %script{:src => '//aui-cdn.atlassian.com/aui-adg/5.9.19/js/aui-soy.min.js'}
+    %meta{name: 'token', content: session_token}
+
+  %body
+    :css
+      .star-panel .aui-button {
+       float: left;
+      }
+      .star-panel .star-panel-counter {
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+
+        box-sizing: border-box;
+        float: left;
+
+        vertical-align: middle;
+
+        border: 1px solid #cccccc;
+        border-left: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        margin-left: 0;
+
+        font: 12px Consolas, Menlo, "Liberation Mono", Courier, monospace;
+        height: 30px;
+        padding: 8px 7px;
+      }
+
+      .star-panel .star-panel-counter:hover {
+        text-decoration: underline;
+        color: #3572b0;
+      }
+    :javascript
+      $(function() {
+        var repoPath = decodeURIComponent(location.search.match(/[\?&]repoPath=([^\&]*)/)[1]);
+
+        var meta = {};
+        ['ap-local-base-url', 'token'].forEach(function(name) {
+          meta[name] = $('meta[name=' + name + ']').attr("content");
+        });
+
+        var baseUrl = meta['ap-local-base-url'];
+        if (baseUrl && !baseUrl.endsWith('/')) baseUrl += '/';
+
+        $('.star-panel').find('.aui-button').on('click', function(e) {
+          e.preventDefault();
+          $.ajax('#{stars_url}', {
+            headers: {
+              'Authorization': 'JWT ' + meta.token
+            },
+            dataType: 'json',
+            type: 'PUT',
+            data: {
+              repoPath: repoPath
+            },
+            error: function() {
+              AP.require("messages", function(messages){
+                //create a message
+                var message = messages.error('Ups!', 'Something went wrong. Please reload the page and try again.');
+                setTimeout(function() {
+                  messages.clear(message);
+                }, 2000);
+              });
+            },
+            success: function(response) {
+              $('.star-panel-counter').text(response.count);
+              AP.require("messages", function(messages) {
+                //create a message
+                var message = messages.success('Success!', 'Happy to save that for you!');
+                setTimeout(function() {
+                  messages.clear(message);
+                }, 2000);
+              });
+            }
+          });
+        });
+      });
+    #content{rel: 'main', style: 'background: #fff; padding: 5px;'}
+      .star-panel
+        .aui-buttons{style: 'display: block;'}
+          %a.aui-button{'aria-controls' => 'star-panel-dropdown-overview', 'aria-expanded' => 'false', 'aria-haspopup' => 'false', :href => '#', :resolved => ''}
+            %span.star-text
+              %span.aui-icon.aui-icon-small.aui-iconfont-star
+              %span.star
+                Star
+              -#%span.unstar
+              -#  Unstar
+
+          %a.star-panel-counter
+            = count

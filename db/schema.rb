@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601141748) do
+ActiveRecord::Schema.define(version: 20160602175725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,4 +32,11 @@ ActiveRecord::Schema.define(version: 20160601141748) do
     t.string  "display_name"
   end
 
+  create_table "repos", force: :cascade do |t|
+    t.integer "jwt_token_id", null: false
+    t.string  "repo_name",    null: false
+    t.index ["repo_name", "jwt_token_id"], name: "index_repos_on_repo_name_and_jwt_token_id", unique: true, using: :btree
+  end
+
+  add_foreign_key "repos", "jwt_tokens", on_delete: :cascade
 end

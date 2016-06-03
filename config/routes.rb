@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get '/bitbucket/descriptor', to: 'bitbucket#descriptor', format: :json 
   post '/installed', to: 'lifecycle#installed'
   post '/uninstalled', to: 'lifecycle#uninstalled'
+  get '/stars', to: 'stars#show'
+  put '/stars', to: 'stars#save'
   
 end

@@ -9,11 +9,10 @@ class StarsController < ApplicationController
 
   def show
     repo_name = params.permit(:repoPath)['repoPath']
-    render :show, locals: {
-        session_token: create_session_token,
-        count: Repo.where(repo_name: repo_name).count,
-        starred: Repo.where(repo_name: repo_name, jwt_token_id: current_jwt_auth.id).count > 0
-    }
+    locals = {
+        session_token: create_session_token
+    }.merge! (Repo.number_of_stars(current_jwt_auth, repo_name))
+    render :show, locals: locals
   end
 
   def save

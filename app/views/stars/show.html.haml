@@ -75,6 +75,8 @@
             },
             success: function(response) {
               $('.star-panel-counter').text(response.count);
+              $('.star-text .star').toggle(!response.starred);
+              $('.star-text .unstar').toggle(response.starred);
               AP.require("messages", function(messages) {
                 //create a message
                 var message = messages.success('Success!', 'Happy to save that for you!');
@@ -92,10 +94,10 @@
           %a.aui-button{'aria-controls' => 'star-panel-dropdown-overview', 'aria-expanded' => 'false', 'aria-haspopup' => 'false', :href => '#', :resolved => ''}
             %span.star-text
               %span.aui-icon.aui-icon-small.aui-iconfont-star
-              %span.star
+              %span.star{style: "display: #{starred ? 'none': 'inline-block'};"}
                 Star
-              -#%span.unstar
-              -#  Unstar
+              %span.unstar{style: "display: #{starred ? 'inline-block': 'none'};"}
+                Unstar
 
           %a.star-panel-counter
             = count
